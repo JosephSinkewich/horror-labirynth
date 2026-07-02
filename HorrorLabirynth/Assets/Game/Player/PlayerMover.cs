@@ -13,7 +13,7 @@ namespace Game.Player
 
         CharacterController _controller;
 
-        void Awake()
+        private void Awake()
         {
             _controller = GetComponent<CharacterController>();
         }

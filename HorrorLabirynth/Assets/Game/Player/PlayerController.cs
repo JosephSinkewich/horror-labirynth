@@ -14,12 +14,12 @@ namespace Game.Player
         PlayerMover _mover;
         bool _isEnabled = true;
 
-        void Awake()
+        private void Awake()
         {
             _mover = GetComponent<PlayerMover>();
         }
 
-        void Update()
+        private void Update()
         {
             if (!_isEnabled)
                 return;

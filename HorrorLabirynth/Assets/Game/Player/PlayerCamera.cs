@@ -19,12 +19,12 @@ namespace Game.Player
         float _pitch;
         bool _isEnabled = true;
 
-        void Start()
+        private void Start()
         {
             SetCursorLocked(true);
         }
 
-        void Update()
+        private void Update()
         {
             if (!_isEnabled)
                 return;
@@ -46,7 +46,7 @@ namespace Game.Player
             SetCursorLocked(enabled);
         }
 
-        void SetCursorLocked(bool locked)
+        private void SetCursorLocked(bool locked)
         {
             Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !locked;

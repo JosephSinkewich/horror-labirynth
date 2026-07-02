@@ -64,3 +64,23 @@ PlayerMover mover;
 [SerializeField] PlayerInputSettings _settings;
 PlayerMover _mover;
 ```
+
+## Explicit access modifiers
+
+Always write the access modifier on methods — do not rely on the default `private`:
+
+- Unity lifecycle: `private void Awake()`, `private void Update()`
+- Helpers: `private void SetCursorLocked(bool locked)`
+- Public API: `public void SetControlEnabled(bool enabled)`
+
+```csharp
+// BAD
+void Update()
+{
+}
+
+// GOOD
+private void Update()
+{
+}
+```
