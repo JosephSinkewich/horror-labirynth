@@ -150,9 +150,10 @@ GameObject:
   - component: {fileID: 5870036069245101888}
   - component: {fileID: 8392017463829105748}
   - component: {fileID: 8701732894570228693}
+  - component: {fileID: 8701732894570228694}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,8 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6af7736e7f5d0d4cba918501c096b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 6
+  _walkSpeed: 3
+  _runSpeed: 6
 --- !u!114 &8392017463829105748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,11 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c3d4e5f6478990abcdef1234567890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 3f80b3019c7d85543aff9bfe20f0e601, type: 2}
-  cameraPivot: {fileID: 8203746582938475629}
-  lookSensitivity: 0.1
-  minPitch: -89
-  maxPitch: 89
+  _settings: {fileID: 11400000, guid: 3f80b3019c7d85543aff9bfe20f0e601, type: 2}
+  _cameraPivot: {fileID: 8203746582938475629}
+  _lookSensitivity: 0.1
+  _minPitch: -89
+  _maxPitch: 89
 --- !u!114 &8701732894570228693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,5 +242,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84353dee6b857244996c3a243486aa60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 3f80b3019c7d85543aff9bfe20f0e601, type: 2}
-  playerCamera: {fileID: 8392017463829105748}
+  _settings: {fileID: 11400000, guid: 3f80b3019c7d85543aff9bfe20f0e601, type: 2}
+  _playerCamera: {fileID: 8392017463829105748}
+--- !u!114 &8701732894570228694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9205492404996451353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gemTag: Gem
