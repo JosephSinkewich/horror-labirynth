@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Player
 {
     [RequireComponent(typeof(PlayerMover))]
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] PlayerInputSettings settings;
-        [SerializeField] PlayerCamera playerCamera;
+        [FormerlySerializedAs("settings")]
+        [SerializeField] PlayerInputSettings _settings;
+        [FormerlySerializedAs("playerCamera")]
+        [SerializeField] PlayerCamera _playerCamera;
 
         PlayerMover _mover;
         bool _isEnabled = true;
@@ -21,7 +24,7 @@ namespace Game.Player
             if (!_isEnabled)
                 return;
 
-            Vector2 input = settings.MoveAction.ReadValue<Vector2>();
+            Vector2 input = _settings.MoveAction.ReadValue<Vector2>();
             if (input.sqrMagnitude < 0.01f)
                 return;
 
@@ -33,13 +36,13 @@ namespace Game.Player
             right.Normalize();
 
             Vector3 direction = right * input.x + forward * input.y;
-            _mover.Move(direction, settings.SprintAction.IsPressed());
+            _mover.Move(direction, _settings.SprintAction.IsPressed());
         }
 
         public void SetControlEnabled(bool enabled)
         {
             _isEnabled = enabled;
-            playerCamera?.SetEnabled(enabled);
+            _playerCamera?.SetEnabled(enabled);
         }
     }
 }

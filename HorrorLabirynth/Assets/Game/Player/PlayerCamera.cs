@@ -1,14 +1,20 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Player
 {
     public class PlayerCamera : MonoBehaviour
     {
-        [SerializeField] PlayerInputSettings settings;
-        [SerializeField] Transform cameraPivot;
-        [SerializeField] float lookSensitivity = 0.1f;
-        [SerializeField] float minPitch = -89f;
-        [SerializeField] float maxPitch = 89f;
+        [FormerlySerializedAs("settings")]
+        [SerializeField] PlayerInputSettings _settings;
+        [FormerlySerializedAs("cameraPivot")]
+        [SerializeField] Transform _cameraPivot;
+        [FormerlySerializedAs("lookSensitivity")]
+        [SerializeField] float _lookSensitivity = 0.1f;
+        [FormerlySerializedAs("minPitch")]
+        [SerializeField] float _minPitch = -89f;
+        [FormerlySerializedAs("maxPitch")]
+        [SerializeField] float _maxPitch = 89f;
 
         float _pitch;
         bool _isEnabled = true;
@@ -23,15 +29,15 @@ namespace Game.Player
             if (!_isEnabled)
                 return;
 
-            Vector2 look = settings.LookAction.ReadValue<Vector2>();
+            Vector2 look = _settings.LookAction.ReadValue<Vector2>();
             if (look.sqrMagnitude < 0.001f)
                 return;
 
-            transform.Rotate(Vector3.up, look.x * lookSensitivity);
+            transform.Rotate(Vector3.up, look.x * _lookSensitivity);
 
-            _pitch -= look.y * lookSensitivity;
-            _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
-            cameraPivot.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
+            _pitch -= look.y * _lookSensitivity;
+            _pitch = Mathf.Clamp(_pitch, _minPitch, _maxPitch);
+            _cameraPivot.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
         }
 
         public void SetEnabled(bool enabled)

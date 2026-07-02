@@ -42,3 +42,25 @@ settings.MoveAction.ReadValue<Vector2>();
 Do not hand-author `InputActionReference` `.asset` files or GUID-based links in prefabs. Configure references in the Unity Editor.
 
 If a reference is missing after codegen, tell the user which Inspector field to assign — do not patch GUIDs into code.
+
+## Private field naming
+
+All private fields in C# must use a leading underscore:
+
+- Instance fields: `_mover`, `_isEnabled`
+- `[SerializeField]` private fields: `_settings`, `_walkSpeed`
+- `const` / `static readonly` private fields: same rule if they are fields (not local variables)
+
+Public members, properties, and method parameters keep normal PascalCase / camelCase — no underscore.
+
+When renaming an existing serialized private field, add `[FormerlySerializedAs("oldName")]` so Unity keeps Inspector assignments.
+
+```csharp
+// BAD
+[SerializeField] PlayerInputSettings settings;
+PlayerMover mover;
+
+// GOOD
+[SerializeField] PlayerInputSettings _settings;
+PlayerMover _mover;
+```
