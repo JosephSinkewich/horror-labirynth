@@ -1416,9 +1416,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6376901990378976705, guid: 94839a0be99f1314e9847229d7587ef5, type: 3}
+      propertyPath: m_Name
+      value: WallTile
+      objectReference: {fileID: 0}
     - target: {fileID: 6495926501559360132, guid: 94839a0be99f1314e9847229d7587ef5, type: 3}
       propertyPath: m_Name
       value: Labirynth
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500928122720551226, guid: 94839a0be99f1314e9847229d7587ef5, type: 3}
+      propertyPath: m_Name
+      value: WallTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
