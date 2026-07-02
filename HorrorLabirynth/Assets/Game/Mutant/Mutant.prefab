@@ -153,6 +153,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3629325538806293655}
   - component: {fileID: 1729155336165640945}
+  - component: {fileID: 7852705115814941519}
+  - component: {fileID: 4192109983821041045}
+  - component: {fileID: 5021641363275034779}
+  - component: {fileID: 2268054387982200877}
   m_Layer: 0
   m_Name: Mutant
   m_TagString: Untagged
@@ -184,7 +188,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6063404693135642097}
   m_Enabled: 1
-  m_AgentTypeID: -1372625422
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 4
   m_Acceleration: 8
@@ -198,6 +202,63 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7852705115814941519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063404693135642097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9f16bb5204de64ba04b5a1562a4317, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _patrolPoints: []
+  _detectionRadius: 8
+  _loseRadius: 12
+  _catchRadius: 1.2
+  _waypointReachDistance: 0.6
+  _patrolSpeed: 2
+  _chaseSpeed: 3
+  _destinationRefreshDistance: 0.5
+--- !u!114 &4192109983821041045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063404693135642097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ac9e1f53afe0d4aade368a27f83478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5021641363275034779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063404693135642097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f081899f13d97624c9d14211fe3be5de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2268054387982200877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063404693135642097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f93f3ff931ed847b66a61a09518559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6382933622524971408
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 6382933622524971408}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: -0.15}
+  m_LocalPosition: {x: -0.15, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -331,7 +392,7 @@ Transform:
   m_GameObject: {fileID: 8345000369282150504}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -367,7 +428,7 @@ Transform:
   m_GameObject: {fileID: 8622160434463983632}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.15}
+  m_LocalPosition: {x: 0.15, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
