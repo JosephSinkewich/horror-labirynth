@@ -162,23 +162,23 @@ namespace Game.Mutant
             worldPosition.y += _patrolGizmoHeightOffset;
             return worldPosition;
         }
-    }
 
 #if UNITY_EDITOR
-    private static class MutantAiGizmos
-    {
-        public static void DrawLineThroughWalls(Vector3 from, Vector3 to, Color color)
+        private static class MutantAiGizmos
         {
-            Color previousColor = Handles.color;
-            CompareFunction previousZTest = Handles.zTest;
+            public static void DrawLineThroughWalls(Vector3 from, Vector3 to, Color color)
+            {
+                Color previousColor = Handles.color;
+                CompareFunction previousZTest = Handles.zTest;
 
-            Handles.color = color;
-            Handles.zTest = CompareFunction.Always;
-            Handles.DrawLine(from, to);
+                Handles.color = color;
+                Handles.zTest = CompareFunction.Always;
+                Handles.DrawLine(from, to);
 
-            Handles.color = previousColor;
-            Handles.zTest = previousZTest;
+                Handles.color = previousColor;
+                Handles.zTest = previousZTest;
+            }
         }
-    }
 #endif
+    }
 }
