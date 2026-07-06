@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxGemsOnLevel: 5
   _gemsRequiredToExit: 10
-  _minRespawnDistance: 20
+  _minRespawnDistance: 5
