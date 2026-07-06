@@ -1,5 +1,5 @@
 ---
-description: VContainer [Inject] Construct method conventions
+description: VContainer conventions — Construct injection and LifetimeScope registration
 globs: **/*.cs
 alwaysApply: true
 ---
@@ -37,4 +37,24 @@ private void OnDestroy()
 {
     _gemsSystem.GemCollected -= OnGemCollected;
 }
+```
+
+# LifetimeScope Registration
+
+Never use `RegisterComponentInHierarchy`. Do not search the scene hierarchy from `Configure`.
+
+Register only services and assets in `Configure` (e.g. `RegisterInstance`, `Register<T>`).
+
+Inject scene `MonoBehaviour` dependencies via **Auto Inject Game Objects** on the `LifetimeScope` component in the Unity Inspector.
+
+```csharp
+// BAD
+builder.RegisterComponentInHierarchy<GemsSpawner>();
+builder.RegisterComponentInHierarchy<PlayerGemCollector>();
+
+// GOOD — Configure
+builder.RegisterInstance(_gemsBalance);
+builder.Register<GemsSystem>(Lifetime.Singleton);
+
+// GOOD — Inspector: add scene GameObjects to Auto Inject Game Objects on GameLifetimeScope
 ```
