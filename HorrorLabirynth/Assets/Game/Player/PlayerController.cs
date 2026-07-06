@@ -7,12 +7,12 @@ namespace Game.Player
     public class PlayerController : MonoBehaviour
     {
         [FormerlySerializedAs("settings")]
-        [SerializeField] PlayerInputSettings _settings;
+        [SerializeField] private PlayerInputSettings _settings;
         [FormerlySerializedAs("playerCamera")]
-        [SerializeField] PlayerCamera _playerCamera;
+        [SerializeField] private PlayerCamera _playerCamera;
 
-        PlayerMover _mover;
-        bool _isEnabled = true;
+        private PlayerMover _mover;
+        private bool _isEnabled = true;
 
         private void Awake()
         {

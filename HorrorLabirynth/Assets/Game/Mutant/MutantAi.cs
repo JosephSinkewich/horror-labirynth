@@ -9,7 +9,7 @@ namespace Game.Mutant
     [RequireComponent(typeof(MutantPerception))]
     public class MutantAi : MonoBehaviour
     {
-        enum State
+        private enum State
         {
             Patrol,
             Chase,
@@ -17,31 +17,31 @@ namespace Game.Mutant
         }
 
         [FormerlySerializedAs("player")]
-        [SerializeField] Transform _player;
+        [SerializeField] private Transform _player;
         [FormerlySerializedAs("patrolPoints")]
-        [SerializeField] Transform[] _patrolPoints;
+        [SerializeField] private Transform[] _patrolPoints;
         [FormerlySerializedAs("detectionRadius")]
-        [SerializeField] float _detectionRadius = 8f;
+        [SerializeField] private float _detectionRadius = 8f;
         [FormerlySerializedAs("loseRadius")]
-        [SerializeField] float _loseRadius = 12f;
+        [SerializeField] private float _loseRadius = 12f;
         [FormerlySerializedAs("catchRadius")]
-        [SerializeField] float _catchRadius = 1.2f;
+        [SerializeField] private float _catchRadius = 1.2f;
         [FormerlySerializedAs("waypointReachDistance")]
-        [SerializeField] float _waypointReachDistance = 0.6f;
+        [SerializeField] private float _waypointReachDistance = 0.6f;
         [FormerlySerializedAs("patrolSpeed")]
-        [SerializeField] float _patrolSpeed = 2.5f;
+        [SerializeField] private float _patrolSpeed = 2.5f;
         [FormerlySerializedAs("chaseSpeed")]
-        [SerializeField] float _chaseSpeed = 4f;
+        [SerializeField] private float _chaseSpeed = 4f;
         [FormerlySerializedAs("destinationRefreshDistance")]
-        [SerializeField] float _destinationRefreshDistance = 0.5f;
+        [SerializeField] private float _destinationRefreshDistance = 0.5f;
 
-        MutantNavMovement _movement;
-        MutantPatrol _patrol;
-        MutantPerception _perception;
+        private MutantNavMovement _movement;
+        private MutantPatrol _patrol;
+        private MutantPerception _perception;
 
-        State _state = State.Patrol;
-        Transform _returnTarget;
-        bool _hasCaughtPlayer;
+        private State _state = State.Patrol;
+        private Transform _returnTarget;
+        private bool _hasCaughtPlayer;
 
         public event Action PlayerCaught;
 

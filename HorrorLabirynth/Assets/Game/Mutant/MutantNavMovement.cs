@@ -6,7 +6,7 @@ namespace Game.Mutant
     [RequireComponent(typeof(NavMeshAgent))]
     public class MutantNavMovement : MonoBehaviour
     {
-        NavMeshAgent _agent;
+        private NavMeshAgent _agent;
 
         public bool IsOnNavMesh => _agent.isOnNavMesh;
 

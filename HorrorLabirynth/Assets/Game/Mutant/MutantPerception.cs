@@ -4,10 +4,10 @@ namespace Game.Mutant
 {
     public class MutantPerception : MonoBehaviour
     {
-        Transform _player;
-        float _detectionRadius;
-        float _loseRadius;
-        float _catchRadius;
+        private Transform _player;
+        private float _detectionRadius;
+        private float _loseRadius;
+        private float _catchRadius;
 
         public Transform Player => _player;
 

@@ -24,8 +24,8 @@ Never hardcode Unity asset identifiers in C# or other source code:
 inputActions.FindAction("351f2ccd-1f9f-44bf-9bec-d62ac5c5f408");
 
 // GOOD
-[SerializeField] InputActionReference moveAction;
-moveAction.action.ReadValue<Vector2>();
+[SerializeField] private InputActionReference _moveAction;
+_moveAction.action.ReadValue<Vector2>();
 ```
 
 ```csharp
@@ -33,8 +33,8 @@ moveAction.action.ReadValue<Vector2>();
 [SerializeField] string actionId = "641cd816-40e6-41b4-8c3d-04687c349290";
 
 // GOOD
-[SerializeField] PlayerInputSettings settings;
-settings.MoveAction.ReadValue<Vector2>();
+[SerializeField] private PlayerInputSettings _settings;
+_settings.MoveAction.ReadValue<Vector2>();
 ```
 
 ## Manual YAML / prefab edits
@@ -42,45 +42,3 @@ settings.MoveAction.ReadValue<Vector2>();
 Do not hand-author `InputActionReference` `.asset` files or GUID-based links in prefabs. Configure references in the Unity Editor.
 
 If a reference is missing after codegen, tell the user which Inspector field to assign — do not patch GUIDs into code.
-
-## Private field naming
-
-All private fields in C# must use a leading underscore:
-
-- Instance fields: `_mover`, `_isEnabled`
-- `[SerializeField]` private fields: `_settings`, `_walkSpeed`
-- `const` / `static readonly` private fields: same rule if they are fields (not local variables)
-
-Public members, properties, and method parameters keep normal PascalCase / camelCase — no underscore.
-
-When renaming an existing serialized private field, add `[FormerlySerializedAs("oldName")]` so Unity keeps Inspector assignments.
-
-```csharp
-// BAD
-[SerializeField] PlayerInputSettings settings;
-PlayerMover mover;
-
-// GOOD
-[SerializeField] PlayerInputSettings _settings;
-PlayerMover _mover;
-```
-
-## Explicit access modifiers
-
-Always write the access modifier on methods — do not rely on the default `private`:
-
-- Unity lifecycle: `private void Awake()`, `private void Update()`
-- Helpers: `private void SetCursorLocked(bool locked)`
-- Public API: `public void SetControlEnabled(bool enabled)`
-
-```csharp
-// BAD
-void Update()
-{
-}
-
-// GOOD
-private void Update()
-{
-}
-```

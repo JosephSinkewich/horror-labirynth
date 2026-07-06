@@ -1,0 +1,33 @@
+---
+description: Explicit access modifiers on C# methods, fields, and properties
+globs: **/*.cs
+alwaysApply: true
+---
+
+# Explicit Access Modifiers
+
+Always write the access modifier on methods, fields, and properties — do not rely on the default `private`:
+
+- Unity lifecycle: `private void Awake()`, `private void Update()`
+- Helpers: `private void SetCursorLocked(bool locked)`
+- Public API: `public void SetControlEnabled(bool enabled)`
+- Fields: `private PlayerMover _mover`, `[SerializeField] private float _walkSpeed`
+- Properties: `public int CollectedCount => _collectedCount`, `private bool _isEnabled { get; set; }`
+
+```csharp
+// BAD
+void Update()
+{
+}
+
+[SerializeField] float walkSpeed;
+int CollectedCount => _collectedCount;
+
+// GOOD
+private void Update()
+{
+}
+
+[SerializeField] private float _walkSpeed;
+public int CollectedCount => _collectedCount;
+```

@@ -7,11 +7,11 @@ namespace Game.Player
     public class PlayerMover : MonoBehaviour
     {
         [FormerlySerializedAs("walkSpeed")]
-        [SerializeField] float _walkSpeed = 3f;
+        [SerializeField] private float _walkSpeed = 3f;
         [FormerlySerializedAs("runSpeed")]
-        [SerializeField] float _runSpeed = 6f;
+        [SerializeField] private float _runSpeed = 6f;
 
-        CharacterController _controller;
+        private CharacterController _controller;
 
         private void Awake()
         {

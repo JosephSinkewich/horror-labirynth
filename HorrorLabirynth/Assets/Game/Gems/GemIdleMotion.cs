@@ -4,12 +4,12 @@ namespace Game.Gem
 {
     public class GemIdleMotion : MonoBehaviour
     {
-        [SerializeField] float _rotationSpeed = 90f;
-        [SerializeField] float _floatAmplitude = 0.15f;
-        [SerializeField] float _floatFrequency = 1f;
-        [SerializeField] float _phaseOffset;
+        [SerializeField] private float _rotationSpeed = 90f;
+        [SerializeField] private float _floatAmplitude = 0.15f;
+        [SerializeField] private float _floatFrequency = 1f;
+        [SerializeField] private float _phaseOffset;
 
-        Vector3 _initialLocalPosition;
+        private Vector3 _initialLocalPosition;
 
         private void Awake()
         {

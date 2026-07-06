@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Mutant
 {
-    static class MutantNavUtility
+    internal static class MutantNavUtility
     {
         public static float HorizontalDistance(Vector3 a, Vector3 b)
         {

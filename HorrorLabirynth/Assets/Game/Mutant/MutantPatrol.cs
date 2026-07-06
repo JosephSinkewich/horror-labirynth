@@ -9,16 +9,16 @@ namespace Game.Mutant
     [RequireComponent(typeof(MutantNavMovement))]
     public class MutantPatrol : MonoBehaviour
     {
-        const float _patrolPointRadius = 0.45f;
-        const float _patrolGizmoHeightOffset = 0.15f;
+        private const float _patrolPointRadius = 0.45f;
+        private const float _patrolGizmoHeightOffset = 0.15f;
 
-        Transform[] _patrolPoints;
-        float _patrolSpeed;
-        float _waypointReachDistance;
+        private Transform[] _patrolPoints;
+        private float _patrolSpeed;
+        private float _waypointReachDistance;
 
-        MutantNavMovement _movement;
-        int _patrolIndex;
-        bool _patrolStarted;
+        private MutantNavMovement _movement;
+        private int _patrolIndex;
+        private bool _patrolStarted;
 
         public bool HasRoute => _patrolPoints != null && _patrolPoints.Length > 0;
         public float PatrolSpeed => _patrolSpeed;
@@ -165,7 +165,7 @@ namespace Game.Mutant
     }
 
 #if UNITY_EDITOR
-    static class MutantAiGizmos
+    private static class MutantAiGizmos
     {
         public static void DrawLineThroughWalls(Vector3 from, Vector3 to, Color color)
         {

@@ -1,0 +1,27 @@
+---
+description: C# private field naming with leading underscore
+globs: **/*.cs
+alwaysApply: true
+---
+
+# Private Field Naming
+
+All private fields in C# must use a leading underscore:
+
+- Instance fields: `_mover`, `_isEnabled`
+- `[SerializeField]` private fields: `_settings`, `_walkSpeed`
+- `const` / `static readonly` private fields: same rule if they are fields (not local variables)
+
+Public members, properties, and method parameters keep normal PascalCase / camelCase — no underscore.
+
+When renaming an existing serialized private field, add `[FormerlySerializedAs("oldName")]` so Unity keeps Inspector assignments.
+
+```csharp
+// BAD
+[SerializeField] PlayerInputSettings settings;
+PlayerMover mover;
+
+// GOOD
+[SerializeField] private PlayerInputSettings _settings;
+PlayerMover _mover;
+```

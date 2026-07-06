@@ -6,18 +6,18 @@ namespace Game.Player
     public class PlayerCamera : MonoBehaviour
     {
         [FormerlySerializedAs("settings")]
-        [SerializeField] PlayerInputSettings _settings;
+        [SerializeField] private PlayerInputSettings _settings;
         [FormerlySerializedAs("cameraPivot")]
-        [SerializeField] Transform _cameraPivot;
+        [SerializeField] private Transform _cameraPivot;
         [FormerlySerializedAs("lookSensitivity")]
-        [SerializeField] float _lookSensitivity = 0.1f;
+        [SerializeField] private float _lookSensitivity = 0.1f;
         [FormerlySerializedAs("minPitch")]
-        [SerializeField] float _minPitch = -89f;
+        [SerializeField] private float _minPitch = -89f;
         [FormerlySerializedAs("maxPitch")]
-        [SerializeField] float _maxPitch = 89f;
+        [SerializeField] private float _maxPitch = 89f;
 
-        float _pitch;
-        bool _isEnabled = true;
+        private float _pitch;
+        private bool _isEnabled = true;
 
         private void Start()
         {

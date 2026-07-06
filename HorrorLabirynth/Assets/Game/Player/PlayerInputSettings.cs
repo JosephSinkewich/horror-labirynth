@@ -8,11 +8,11 @@ namespace Game.Player
     public class PlayerInputSettings : ScriptableObject
     {
         [FormerlySerializedAs("moveAction")]
-        [SerializeField] InputActionReference _moveAction;
+        [SerializeField] private InputActionReference _moveAction;
         [FormerlySerializedAs("lookAction")]
-        [SerializeField] InputActionReference _lookAction;
+        [SerializeField] private InputActionReference _lookAction;
         [FormerlySerializedAs("sprintAction")]
-        [SerializeField] InputActionReference _sprintAction;
+        [SerializeField] private InputActionReference _sprintAction;
 
         public InputAction MoveAction => _moveAction.action;
         public InputAction LookAction => _lookAction.action;

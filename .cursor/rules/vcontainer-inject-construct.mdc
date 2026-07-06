@@ -1,0 +1,40 @@
+---
+description: VContainer [Inject] Construct method conventions
+globs: **/*.cs
+alwaysApply: true
+---
+
+# VContainer `[Inject]` Construct Methods
+
+`Construct` (or other `[Inject]` methods) are called once by the container. Do not guard against repeated injection:
+
+- No `if (_dependency != null)` checks before assignment
+- No preliminary unsubscriptions before subscribing in `Construct`
+
+Unsubscribe from events in `OnDestroy` (or equivalent teardown), not preemptively in `Construct`.
+
+```csharp
+// BAD
+[Inject]
+public void Construct(GemsSystem gemsSystem)
+{
+    if (_gemsSystem != null)
+        _gemsSystem.GemCollected -= OnGemCollected;
+
+    _gemsSystem = gemsSystem;
+    _gemsSystem.GemCollected += OnGemCollected;
+}
+
+// GOOD
+[Inject]
+public void Construct(GemsSystem gemsSystem)
+{
+    _gemsSystem = gemsSystem;
+    _gemsSystem.GemCollected += OnGemCollected;
+}
+
+private void OnDestroy()
+{
+    _gemsSystem.GemCollected -= OnGemCollected;
+}
+```
