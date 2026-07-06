@@ -19,10 +19,10 @@ Unsubscribe from events in `OnDestroy` (or equivalent teardown), not preemptivel
 public void Construct(GemsSystem gemsSystem)
 {
     if (_gemsSystem != null)
-        _gemsSystem.GemCollected -= OnGemCollected;
+        _gemsSystem.OnGemCollected -= OnGemCollected;
 
     _gemsSystem = gemsSystem;
-    _gemsSystem.GemCollected += OnGemCollected;
+    _gemsSystem.OnGemCollected += OnGemCollected;
 }
 
 // GOOD
@@ -30,12 +30,12 @@ public void Construct(GemsSystem gemsSystem)
 public void Construct(GemsSystem gemsSystem)
 {
     _gemsSystem = gemsSystem;
-    _gemsSystem.GemCollected += OnGemCollected;
+    _gemsSystem.OnGemCollected += OnGemCollected;
 }
 
 private void OnDestroy()
 {
-    _gemsSystem.GemCollected -= OnGemCollected;
+    _gemsSystem.OnGemCollected -= OnGemCollected;
 }
 ```
 

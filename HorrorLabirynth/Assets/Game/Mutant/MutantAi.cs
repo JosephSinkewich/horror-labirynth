@@ -43,7 +43,7 @@ namespace Game.Mutant
         private Transform _returnTarget;
         private bool _hasCaughtPlayer;
 
-        public event Action PlayerCaught;
+        public event Action OnPlayerCaught;
 
         private void Awake()
         {
@@ -183,7 +183,7 @@ namespace Game.Mutant
         {
             _hasCaughtPlayer = true;
             _movement.Stop();
-            PlayerCaught?.Invoke();
+            OnPlayerCaught?.Invoke();
         }
     }
 }

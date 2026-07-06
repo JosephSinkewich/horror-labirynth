@@ -1,0 +1,25 @@
+---
+description: C# event naming with On prefix
+globs: **/*.cs
+alwaysApply: true
+---
+
+# Event Naming
+
+Name `event` members with an `On` prefix:
+
+- `OnGemCollected`, not `GemCollected`
+- `OnAllRequiredGemsCollected`, not `AllRequiredGemsCollected`
+- `OnPlayerCaught`, not `PlayerCaught`
+
+Handler methods may use the same name or a `Handle` prefix — avoid ambiguous names in the declaring class when needed.
+
+```csharp
+// BAD
+public event Action<GameObject> GemCollected;
+public event Action AllRequiredGemsCollected;
+
+// GOOD
+public event Action<GameObject> OnGemCollected;
+public event Action OnAllRequiredGemsCollected;
+```
