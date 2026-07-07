@@ -1,42 +1,48 @@
+using System;
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
 namespace Game.Gems
 {
-    public class GemsSpawner : MonoBehaviour
+    public class GemsSpawner : IDisposable
     {
-        [SerializeField] private GameObject _gemPrefab;
-        [SerializeField] private Transform _gemsRoot;
-        [SerializeField] private Transform[] _placeholders = System.Array.Empty<Transform>();
+        private readonly GemsSystem _gemsSystem;
+        private readonly IObjectResolver _objectResolver;
+        private readonly Transform _gemsRoot;
+        private readonly GameObject _gemPrefab;
+        private readonly GemPlaceholdersSystem _gemPlaceholdersSystem;
 
-        private GemsSystem _gemsSystem;
-        private IObjectResolver _objectResolver;
-        private readonly Dictionary<Transform, GameObject> _placeholderToGem = new();
-        private readonly Dictionary<GameObject, Transform> _gemToPlaceholder = new();
-
-        [Inject]
-        public void Construct(GemsSystem gemsSystem, IObjectResolver objectResolver)
+        public GemsSpawner(
+            GemsSystem gemsSystem,
+            IObjectResolver objectResolver,
+            [Key(TransformContainerId.GemsRoot)] Transform gemsRoot,
+            GemResources gemResources,
+            GemPlaceholdersSystem gemPlaceholdersSystem)
         {
             _gemsSystem = gemsSystem;
             _objectResolver = objectResolver;
+            _gemsRoot = gemsRoot;
+            _gemPrefab = gemResources.GemPrefab;
+            _gemPlaceholdersSystem = gemPlaceholdersSystem;
             _gemsSystem.OnGemDestroyed += OnGemDestroyed;
         }
-        private void OnDestroy()
-        {
-            if (_gemsSystem != null)
-                _gemsSystem.OnGemDestroyed -= OnGemDestroyed;
-        }
 
-        private void Start()
+        public void Initialize()
         {
             SpawnInitialGems();
         }
 
+        public void Dispose()
+        {
+            _gemsSystem.OnGemDestroyed -= OnGemDestroyed;
+        }
+
         private void SpawnInitialGems()
         {
-            List<Transform> availablePlaceholders = GetFreePlaceholders();
+            List<GemPlaceholder> availablePlaceholders = GetFreePlaceholders();
             Shuffle(availablePlaceholders);
 
             int gemsToSpawn = Mathf.Min(_gemsSystem.MaxGemsOnLevel, availablePlaceholders.Count);
@@ -46,77 +52,98 @@ namespace Game.Gems
 
         private void OnGemDestroyed(GameObject gem)
         {
-            if (!_gemToPlaceholder.TryGetValue(gem, out Transform placeholder))
+            GemPlaceholder placeholder = FindPlaceholderWithGem(gem);
+            if (placeholder == null)
                 return;
 
-            _gemToPlaceholder.Remove(gem);
-            _placeholderToGem.Remove(placeholder);
-
-            TryRespawnGem(placeholder.position);        }
+            Vector3 collectedPosition = placeholder.transform.position;
+            placeholder.Release();
+            TryRespawnGem(collectedPosition);
+        }
 
         private void TryRespawnGem(Vector3 collectedPosition)
         {
             if (_gemsSystem.SpawnedGems.Count >= _gemsSystem.MaxGemsOnLevel)
                 return;
 
-            List<Transform> candidates = GetFreePlaceholdersAtLeastDistance(collectedPosition, _gemsSystem.MinRespawnDistance);
+            List<GemPlaceholder> candidates = GetFreePlaceholdersAtLeastDistance(collectedPosition, _gemsSystem.MinRespawnDistance);
             if (candidates.Count == 0)
                 candidates = GetFreePlaceholders();
 
             if (candidates.Count == 0)
                 return;
 
-            SpawnAt(candidates[Random.Range(0, candidates.Count)]);
+            SpawnAt(candidates[UnityEngine.Random.Range(0, candidates.Count)]);
         }
 
-        private void SpawnAt(Transform placeholder)
+        private void SpawnAt(GemPlaceholder placeholder)
         {
-            if (placeholder == null || _gemsRoot == null || _placeholderToGem.ContainsKey(placeholder))
+            if (placeholder == null || _gemsRoot == null || placeholder.IsOccupied)
                 return;
 
-            GameObject gem = _objectResolver.Instantiate(_gemPrefab, placeholder.position, placeholder.rotation, _gemsRoot);
+            Transform placeholderTransform = placeholder.transform;
+            GameObject gem = _objectResolver.Instantiate(
+                _gemPrefab,
+                placeholderTransform.position,
+                placeholderTransform.rotation,
+                _gemsRoot);
             _gemsSystem.RegisterSpawnedGem(gem);
-            _placeholderToGem[placeholder] = gem;
-            _gemToPlaceholder[gem] = placeholder;
+            placeholder.TryOccupy(gem);
         }
 
-        private List<Transform> GetFreePlaceholders()
+        private GemPlaceholder FindPlaceholderWithGem(GameObject gem)
         {
-            var result = new List<Transform>();
+            IReadOnlyList<GemPlaceholder> placeholders = _gemPlaceholdersSystem.Placeholders;
 
-            for (int i = 0; i < _placeholders.Length; i++)
+            for (int i = 0; i < placeholders.Count; i++)
             {
-                Transform placeholder = _placeholders[i];
-                if (placeholder != null && !_placeholderToGem.ContainsKey(placeholder))
+                GemPlaceholder placeholder = placeholders[i];
+                if (placeholder != null && placeholder.HasGem(gem))
+                    return placeholder;
+            }
+
+            return null;
+        }
+
+        private List<GemPlaceholder> GetFreePlaceholders()
+        {
+            var result = new List<GemPlaceholder>();
+            IReadOnlyList<GemPlaceholder> placeholders = _gemPlaceholdersSystem.Placeholders;
+
+            for (int i = 0; i < placeholders.Count; i++)
+            {
+                GemPlaceholder placeholder = placeholders[i];
+                if (placeholder != null && !placeholder.IsOccupied)
                     result.Add(placeholder);
             }
 
             return result;
         }
 
-        private List<Transform> GetFreePlaceholdersAtLeastDistance(Vector3 fromPosition, float minDistance)
+        private List<GemPlaceholder> GetFreePlaceholdersAtLeastDistance(Vector3 fromPosition, float minDistance)
         {
-            var result = new List<Transform>();
+            var result = new List<GemPlaceholder>();
             float minDistanceSqr = minDistance * minDistance;
+            IReadOnlyList<GemPlaceholder> placeholders = _gemPlaceholdersSystem.Placeholders;
 
-            for (int i = 0; i < _placeholders.Length; i++)
+            for (int i = 0; i < placeholders.Count; i++)
             {
-                Transform placeholder = _placeholders[i];
-                if (placeholder == null || _placeholderToGem.ContainsKey(placeholder))
+                GemPlaceholder placeholder = placeholders[i];
+                if (placeholder == null || placeholder.IsOccupied)
                     continue;
 
-                if ((placeholder.position - fromPosition).sqrMagnitude >= minDistanceSqr)
+                if ((placeholder.transform.position - fromPosition).sqrMagnitude >= minDistanceSqr)
                     result.Add(placeholder);
             }
 
             return result;
         }
 
-        private static void Shuffle(List<Transform> items)
+        private static void Shuffle(List<GemPlaceholder> items)
         {
             for (int i = items.Count - 1; i > 0; i--)
             {
-                int swapIndex = Random.Range(0, i + 1);
+                int swapIndex = UnityEngine.Random.Range(0, i + 1);
                 (items[i], items[swapIndex]) = (items[swapIndex], items[i]);
             }
         }
