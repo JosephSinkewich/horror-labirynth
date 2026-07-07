@@ -12,11 +12,13 @@ namespace Game.Player
         [SerializeField] private string _gemTag = "Gem";
 
         private GemsSystem _gemsSystem;
+        private PlayerResources _playerResources;
 
         [Inject]
-        public void Construct(GemsSystem gemsSystem)
+        public void Construct(GemsSystem gemsSystem, PlayerResources playerResources)
         {
             _gemsSystem = gemsSystem;
+            _playerResources = playerResources;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -24,7 +26,10 @@ namespace Game.Player
             if (!other.CompareTag(_gemTag))
                 return;
 
-            _gemsSystem.TryCollectGem(other.gameObject);
+            if (!_gemsSystem.TryDestroyGem(other.gameObject))
+                return;
+
+            _playerResources.CollectGem();
         }
     }
 }

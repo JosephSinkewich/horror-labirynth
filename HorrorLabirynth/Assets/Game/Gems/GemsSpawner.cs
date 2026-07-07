@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-
 namespace Game.Gems
 {
     public class GemsSpawner : MonoBehaviour
@@ -12,8 +11,7 @@ namespace Game.Gems
         [SerializeField] private Transform[] _placeholders = System.Array.Empty<Transform>();
 
         private GemsSystem _gemsSystem;
-        private IObjectResolver _objectResolver;
-        private readonly Dictionary<Transform, GameObject> _placeholderToGem = new();
+        private IObjectResolver _objectResolver;        private readonly Dictionary<Transform, GameObject> _placeholderToGem = new();
         private readonly Dictionary<GameObject, Transform> _gemToPlaceholder = new();
 
         [Inject]
@@ -21,13 +19,12 @@ namespace Game.Gems
         {
             _gemsSystem = gemsSystem;
             _objectResolver = objectResolver;
-            _gemsSystem.OnGemCollected += OnGemCollected;
+            _gemsSystem.OnGemDestroyed += OnGemDestroyed;
         }
-
         private void OnDestroy()
         {
             if (_gemsSystem != null)
-                _gemsSystem.OnGemCollected -= OnGemCollected;
+                _gemsSystem.OnGemDestroyed -= OnGemDestroyed;
         }
 
         private void Start()
@@ -45,7 +42,7 @@ namespace Game.Gems
                 SpawnAt(availablePlaceholders[i]);
         }
 
-        private void OnGemCollected(GameObject gem)
+        private void OnGemDestroyed(GameObject gem)
         {
             if (!_gemToPlaceholder.TryGetValue(gem, out Transform placeholder))
                 return;
@@ -53,11 +50,7 @@ namespace Game.Gems
             _gemToPlaceholder.Remove(gem);
             _placeholderToGem.Remove(placeholder);
 
-            if (_gemsSystem.HasCollectedRequiredGems)
-                return;
-
-            TryRespawnGem(placeholder.position);
-        }
+            TryRespawnGem(placeholder.position);        }
 
         private void TryRespawnGem(Vector3 collectedPosition)
         {

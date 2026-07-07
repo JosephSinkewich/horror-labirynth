@@ -1,0 +1,20 @@
+{
+    "dotnet.defaultSolution": "HorrorLabirynth/HorrorLabirynth.sln",
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "HorrorLabirynth/HorrorLabirynth.sln"
+    ],
+    "dotrush.roslyn.restoreProjectsBeforeLoading": true,
+    "search.exclude": {
+        "**/HorrorLabirynth/Library/**": true,
+        "**/HorrorLabirynth/Temp/**": true,
+        "**/HorrorLabirynth/Logs/**": true,
+        "**/HorrorLabirynth/obj/**": true,
+        "**/HorrorLabirynth/UserSettings/**": true
+    },
+    "files.watcherExclude": {
+        "**/HorrorLabirynth/Library/**": true,
+        "**/HorrorLabirynth/Temp/**": true,
+        "**/HorrorLabirynth/Logs/**": true,
+        "**/HorrorLabirynth/obj/**": true
+    }
+}

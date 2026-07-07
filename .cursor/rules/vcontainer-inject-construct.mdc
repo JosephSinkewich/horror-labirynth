@@ -16,26 +16,26 @@ Unsubscribe from events in `OnDestroy` (or equivalent teardown), not preemptivel
 ```csharp
 // BAD
 [Inject]
-public void Construct(GemsSystem gemsSystem)
+public void Construct(PlayerResources playerResources)
 {
-    if (_gemsSystem != null)
-        _gemsSystem.OnGemCollected -= OnGemCollected;
+    if (_playerResources != null)
+        _playerResources.OnGemCollected -= OnGemCollected;
 
-    _gemsSystem = gemsSystem;
-    _gemsSystem.OnGemCollected += OnGemCollected;
+    _playerResources = playerResources;
+    _playerResources.OnGemCollected += OnGemCollected;
 }
 
 // GOOD
 [Inject]
-public void Construct(GemsSystem gemsSystem)
+public void Construct(PlayerResources playerResources)
 {
-    _gemsSystem = gemsSystem;
-    _gemsSystem.OnGemCollected += OnGemCollected;
+    _playerResources = playerResources;
+    _playerResources.OnGemCollected += OnGemCollected;
 }
 
 private void OnDestroy()
 {
-    _gemsSystem.OnGemCollected -= OnGemCollected;
+    _playerResources.OnGemCollected -= OnGemCollected;
 }
 ```
 

@@ -1,4 +1,5 @@
 using Game.Gems;
+using Game.Player;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -13,6 +14,7 @@ namespace Game
         {
             builder.RegisterInstance(_gemsBalance);
             builder.Register<GemsSystem>(Lifetime.Singleton);
+            builder.Register<PlayerResources>(Lifetime.Singleton);
         }
     }
 }
