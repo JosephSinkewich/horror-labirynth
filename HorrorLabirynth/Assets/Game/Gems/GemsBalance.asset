@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c44658c733e6324d80ed2697e34fe1d, type: 3}
   m_Name: GemsBalance
   m_EditorClassIdentifier: 
-  _maxGemsOnLevel: 5
+  _maxGemsOnLevel: 10
   _gemsRequiredToExit: 10
   _minRespawnDistance: 5
