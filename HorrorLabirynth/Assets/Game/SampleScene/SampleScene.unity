@@ -212,6 +212,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9038675138736753960, guid: 55c01ebde28c32f4fa5ef87c2b0eb13d, type: 3}
   m_PrefabInstance: {fileID: 136643803}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &136643805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8701732894570228693, guid: 55c01ebde28c32f4fa5ef87c2b0eb13d, type: 3}
+  m_PrefabInstance: {fileID: 136643803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604818563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84353dee6b857244996c3a243486aa60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &147134331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,10 +1286,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 975135850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1490127793
 GameObject:
@@ -1382,6 +1393,7 @@ MonoBehaviour:
   _dialogsResources: {fileID: 11400000, guid: a1b2c3d4e5f6789012345678abc00006, type: 2}
   _gemsRoot: {fileID: 908641777}
   _dialogsRoot: {fileID: 1444699698}
+  _playerController: {fileID: 136643805}
 --- !u!4 &1567157697
 Transform:
   m_ObjectHideFlags: 0

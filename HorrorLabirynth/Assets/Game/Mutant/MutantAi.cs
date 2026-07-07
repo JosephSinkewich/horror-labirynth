@@ -1,6 +1,7 @@
-using System;
+using Game;
 using UnityEngine;
 using UnityEngine.Serialization;
+using VContainer;
 
 namespace Game.Mutant
 {
@@ -42,8 +43,13 @@ namespace Game.Mutant
         private State _state = State.Patrol;
         private Transform _returnTarget;
         private bool _hasCaughtPlayer;
+        private GameSession _gameSession;
 
-        public event Action OnPlayerCaught;
+        [Inject]
+        public void Construct(GameSession gameSession)
+        {
+            _gameSession = gameSession;
+        }
 
         private void Awake()
         {
@@ -183,7 +189,7 @@ namespace Game.Mutant
         {
             _hasCaughtPlayer = true;
             _movement.Stop();
-            OnPlayerCaught?.Invoke();
+            _gameSession.OnMutantCaughtPlayer();
         }
     }
 }
