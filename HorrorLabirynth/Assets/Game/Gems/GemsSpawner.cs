@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+
 namespace Game.Gems
 {
     public class GemsSpawner : MonoBehaviour
@@ -11,7 +12,8 @@ namespace Game.Gems
         [SerializeField] private Transform[] _placeholders = System.Array.Empty<Transform>();
 
         private GemsSystem _gemsSystem;
-        private IObjectResolver _objectResolver;        private readonly Dictionary<Transform, GameObject> _placeholderToGem = new();
+        private IObjectResolver _objectResolver;
+        private readonly Dictionary<Transform, GameObject> _placeholderToGem = new();
         private readonly Dictionary<GameObject, Transform> _gemToPlaceholder = new();
 
         [Inject]

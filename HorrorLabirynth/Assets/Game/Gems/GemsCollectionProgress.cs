@@ -1,21 +1,21 @@
 using System;
-using Game.Gems;
 
-namespace Game.Player
+namespace Game.Gems
 {
-    public class PlayerResources
+    public class GemsCollectionProgress
     {
         private readonly GemsBalance _balance;
 
         private int _collectedGemsCount;
 
-        public PlayerResources(GemsBalance balance)
+        public GemsCollectionProgress(GemsBalance balance)
         {
             _balance = balance;
         }
 
         public int CollectedGemsCount => _collectedGemsCount;
-        public bool HasCollectedRequiredGems => _collectedGemsCount >= _balance.GemsRequiredToExit;
+        public int GemsRequiredToExit => _balance.GemsRequiredToExit;
+        public bool HasCollectedRequiredGems => _collectedGemsCount >= GemsRequiredToExit;
 
         public event Action OnGemCollected;
         public event Action OnAllCollected;

@@ -1,5 +1,4 @@
 using Game.Gems;
-using Game.Player;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -11,15 +10,13 @@ namespace Game.Hud
         [SerializeField] private TMP_Text _counterText;
         [SerializeField] private string _format = "{0}/{1}";
 
-        private PlayerResources _playerResources;
-        private GemsBalance _gemsBalance;
+        private GemsCollectionProgress _gemsCollectionProgress;
 
         [Inject]
-        public void Construct(PlayerResources playerResources, GemsBalance gemsBalance)
+        public void Construct(GemsCollectionProgress gemsCollectionProgress)
         {
-            _playerResources = playerResources;
-            _gemsBalance = gemsBalance;
-            _playerResources.OnGemCollected += OnGemCollected;
+            _gemsCollectionProgress = gemsCollectionProgress;
+            _gemsCollectionProgress.OnGemCollected += OnGemCollected;
         }
         private void Start()
         {
@@ -28,8 +25,8 @@ namespace Game.Hud
 
         private void OnDestroy()
         {
-            if (_playerResources != null)
-                _playerResources.OnGemCollected -= OnGemCollected;
+            if (_gemsCollectionProgress != null)
+                _gemsCollectionProgress.OnGemCollected -= OnGemCollected;
         }
 
         private void OnGemCollected()
@@ -41,8 +38,8 @@ namespace Game.Hud
         {
             _counterText.text = string.Format(
                 _format,
-                _playerResources.CollectedGemsCount,
-                _gemsBalance.GemsRequiredToExit);
+                _gemsCollectionProgress.CollectedGemsCount,
+                _gemsCollectionProgress.GemsRequiredToExit);
         }
     }
 }

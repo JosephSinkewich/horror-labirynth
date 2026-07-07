@@ -12,13 +12,13 @@ namespace Game.Player
         [SerializeField] private string _gemTag = "Gem";
 
         private GemsSystem _gemsSystem;
-        private PlayerResources _playerResources;
+        private GemsCollectionProgress _gemsCollectionProgress;
 
         [Inject]
-        public void Construct(GemsSystem gemsSystem, PlayerResources playerResources)
+        public void Construct(GemsSystem gemsSystem, GemsCollectionProgress gemsCollectionProgress)
         {
             _gemsSystem = gemsSystem;
-            _playerResources = playerResources;
+            _gemsCollectionProgress = gemsCollectionProgress;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -29,7 +29,7 @@ namespace Game.Player
             if (!_gemsSystem.TryDestroyGem(other.gameObject))
                 return;
 
-            _playerResources.CollectGem();
+            _gemsCollectionProgress.CollectGem();
         }
     }
 }
