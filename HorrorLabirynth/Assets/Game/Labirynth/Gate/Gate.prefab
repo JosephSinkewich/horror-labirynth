@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 7708290481241295611}
   - component: {fileID: 6322864195970173401}
   - component: {fileID: 3681231204077378766}
+  - component: {fileID: 1847293650182746392}
   m_Layer: 0
   m_Name: Gate
   m_TagString: Untagged
@@ -545,6 +546,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1847293650182746392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7322425882472331917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8f1c6d2e9b4f7485c0d3e1a2b4c6d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 3681231204077378766}
+  _blockingCollider: {fileID: 6322864195970173401}
 --- !u!1 &7562907158435590108
 GameObject:
   m_ObjectHideFlags: 0
